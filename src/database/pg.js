@@ -1,3 +1,4 @@
+import AppError from "../utils/app-error/app-error.js";
 import pgPool from "./pg-pool.js";
 
 
@@ -22,7 +23,7 @@ const pg = async (query, params = null) => {
 
     } catch (err) {
         console.error("Error while executing sql query: ", err);
-        return
+        throw new AppError(err?.details[0], 500);
     }
 
 };

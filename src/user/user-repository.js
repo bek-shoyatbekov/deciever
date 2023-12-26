@@ -17,7 +17,7 @@ class UserRepository {
             );
             return rows[0];
         } catch (err) {
-            throw new AppError("Internal server error", 500)
+            throw new AppError(err?.details[0]?.message, 500)
         }
     }
 
@@ -29,7 +29,7 @@ class UserRepository {
             );
             return rows[0];
         } catch (err) {
-            throw new AppError("Internal server error", 500);
+            throw new AppError(err?.details[0]?.message, 500)
         }
     }
 
@@ -41,19 +41,19 @@ class UserRepository {
             );
             return rows[0];
         } catch (err) {
-            throw new AppError("Internal server error", 500);
+            throw new AppError(err?.details[0]?.message, 500)
         }
     }
 
     async delete(id) {
         try {
             const { rowCount } = await this.pg(
-                'DELETE FROM users WHERE id=$1',
+                'DELETE FROM users WHERE id=$1;',
                 [id]
             );
             return rowCount;
         } catch (err) {
-            throw new AppError("Internal server error", 500);
+            throw new AppError(err?.details[0]?.message, 500)
         }
     }
 }
