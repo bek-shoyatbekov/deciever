@@ -11,8 +11,11 @@ const levels = {
     debug: 10,
 };
 
-export default pino({
+const logger = pino({
     level: process.env.PINO_LOG_LEVEL || "info",
     customLevels: levels,
     useOnlyCustomLevels: true
-})
+});
+
+
+export default logger;
